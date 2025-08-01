@@ -11,8 +11,8 @@ AlgoritmoResolucion seleccionarEstrategia() {
     int (*algoritmoDeResolucion)(int*, int[], int[], int*, int[2][8]);
 
     printf("Seleccionar la estrategia para resolver el recorrido:\n");
-    printf("  1: Fuerza bruta (probar todas las combinaciones posibles)\n");
-    printf("  2: Priorizar las casillas con menos movimientos disponibles\n");
+    printf("  1: Priorizar las casillas con menos movimientos disponibles\n");
+    printf("  2: Fuerza bruta (menos eficiente)\n");
 
     do
     {
@@ -22,10 +22,10 @@ AlgoritmoResolucion seleccionarEstrategia() {
     switch (opcion)
     {
     case '1':
-        algoritmoDeResolucion = fuerzaBruta;
+        algoritmoDeResolucion = menosMovimientos;
         break;
     case '2':
-        algoritmoDeResolucion = menosMovimientos;
+        algoritmoDeResolucion = fuerzaBruta;
         break;
     default:
         return NULL;
@@ -63,7 +63,7 @@ int fuerzaBruta(int *dim, int tabl[], int pila[], int *cantMov, int movs[2][8]) 
 
                 /* limpiarPantalla();
                 mostrarTablero(*dim, tabl, *cantMov, 1);
-                Sleep(TIEMPO_RESOLUCION); */
+                Sleep(100); */
 
                 if (fuerzaBruta(dim, tabl, pila, cantMov, movs))
                     return 1;
@@ -76,7 +76,7 @@ int fuerzaBruta(int *dim, int tabl[], int pila[], int *cantMov, int movs[2][8]) 
 
                 /* limpiarPantalla();
                 mostrarTablero(*dim, tabl, *cantMov, 0);
-                Sleep(TIEMPO_RESOLUCION); */
+                Sleep(100); */
         }
     }
 

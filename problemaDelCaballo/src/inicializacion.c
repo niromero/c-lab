@@ -10,11 +10,11 @@ int ingresarDimension() {
     char dimension;
 
     limpiarPantalla();
-    printf("Ingresar un valor entre 3 y 8 para la dimension del tablero\n");
+    printf("Ingresar un valor entre 5 y 9 para la dimension del tablero\n");
     do
     {
         dimension = getch();
-    } while (dimension < '3' || dimension > '8');
+    } while (dimension < '5' || dimension > '9');
     limpiarPantalla();
 
     return dimension - '0';

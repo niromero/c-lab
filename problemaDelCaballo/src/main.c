@@ -9,7 +9,8 @@
 
 int main() {
 
-    // Inicializacion
+    int movs[2][8];     // movimientos legales del caballo ( [eje: X, Y] [id_movimiento] )
+    inicializarMovimientos(movs);
 
     int dim = ingresarDimension();                  // dimension del tablero (dim x dim)
     int *tabl = inicializarEstructura(dim, 1);      // tablero: mapa de celdas ocupadas
@@ -22,10 +23,6 @@ int main() {
         return EXIT_FAILURE;
     }
 
-    int cant = 0;       // cantidad de movimientos efectuados
-    int movs[2][8];     // movimientos legales del caballo ( [eje: X, Y] [id_movimiento] )
-    inicializarMovimientos(movs);
-
     // Configuracion
 
     AlgoritmoResolucion resolver = seleccionarEstrategia();     // estrategia de recorrido
@@ -37,10 +34,9 @@ int main() {
         return EXIT_FAILURE;
     }
 
-    // Vista vist = seleccionarVistas();                        // vista al recorrer los caminos
-
     // Ejecucion
 
+    int cant = 0;
     int resultado = resolver(&dim, tabl, pila, &cant, movs);
 
     if(resultado) {

@@ -5,30 +5,13 @@
 #include "vistas.h"
 #include "defs.h"
 
-Vista seleccionarVistas() {
-    int opcion;
-
-    printf("Seleccionar como visualizar el progreso durante la ejecucion:\n");
-    printf("  1: No mostrar nada (mas rapido)\n");
-    printf("  2: Mensajes paso a paso\n");
-    printf("  3: Barra con la cantidad de movimientos\n");
-    printf("  4: Tablero en tiempo real (mas lento)\n");
-
-    do
-    {
-        opcion = getch();
-    } while (opcion < '1' || opcion > '4');
-
-    limpiarPantalla();
-
-    return (Vista) (opcion - '1');
-}
-
-
-
 void limpiarPantalla() {
     system("cls");
     return;
+}
+
+void pausar (int milisec) {
+    Sleep(milisec);
 }
 
 void mostrarTablero (int dim, int tabl[], int ultimo, int esExitoso) {
@@ -63,12 +46,12 @@ void mostrarSolucion (int dim, int tabl[]) {
     for(int i = 0; i < dim * dim; i++){
         limpiarPantalla();
         mostrarTablero(dim, tabl, i, 1);
-        Sleep(TIEMPO_RESULTADO);
+        pausar(TIEMPO_RESULTADO);
     }
     return;
 }
 
 void mostrarNoSolucion () {
-    printf("\nNo existe solucion para el escenario dado.\n");
+    printf("\nNo se encontro solucion para el escenario dado.\n");
     return;
 }
