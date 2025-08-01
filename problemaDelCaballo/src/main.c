@@ -8,10 +8,12 @@
 #include "vistas.h"
 
 int main() {
-    limpiarPantalla();
-    int dim = ingresarDimension();                          // dimension del tablero (dim x dim)
-    int *tabl = inicializarEstructura(dim, 1);              // tablero: mapa de celdas ocupadas
-    int *pila = inicializarEstructura(dim, 0);              // pila: registro de celdas recorridas
+
+    // Inicializacion
+
+    int dim = ingresarDimension();                  // dimension del tablero (dim x dim)
+    int *tabl = inicializarEstructura(dim, 1);      // tablero: mapa de celdas ocupadas
+    int *pila = inicializarEstructura(dim, 0);      // pila: registro de celdas recorridas
 
     if(tabl == NULL || pila == NULL) {
         free(tabl); // Por si uno si fue asignado
@@ -20,24 +22,31 @@ int main() {
         return EXIT_FAILURE;
     }
 
-    int cant = 0;                                   // cantidad de movimientos efectuados
-    int movs[2][8];                                 // movimientos legales del caballo
+    int cant = 0;       // cantidad de movimientos efectuados
+    int movs[2][8];     // movimientos legales del caballo ( [eje: X, Y] [id_movimiento] )
     inicializarMovimientos(movs);
 
-    limpiarPantalla();
+    // Configuracion
+
     AlgoritmoResolucion resolver = seleccionarEstrategia();     // estrategia de recorrido
 
-    // TODO
-    // limpiarPantalla();
-    // Vista vist = seleccionarVistas();                       // vista al recorrer los caminos
+    if(resolver == NULL) {
+        free(tabl);
+        free(pila);
+        fprintf(stderr, "Error al selecionar estrategia.\n");
+        return EXIT_FAILURE;
+    }
 
-    resolver(&dim, tabl, pila, &cant, movs);
+    // Vista vist = seleccionarVistas();                        // vista al recorrer los caminos
 
-    // TODO: nueva funcion en vistas.c
-    for(int i = 0; i < dim * dim; i++){
-        limpiarPantalla();
-        mostrarTablero(dim, tabl, i, 1);
-        Sleep(500);
+    // Ejecucion
+
+    int resultado = resolver(&dim, tabl, pila, &cant, movs);
+
+    if(resultado) {
+        mostrarSolucion(dim, tabl);
+    } else {
+        mostrarNoSolucion();
     }
 
     free(tabl);

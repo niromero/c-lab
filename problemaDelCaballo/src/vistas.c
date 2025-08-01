@@ -19,8 +19,11 @@ Vista seleccionarVistas() {
         opcion = getch();
     } while (opcion < '1' || opcion > '4');
 
+    limpiarPantalla();
+
     return (Vista) (opcion - '1');
 }
+
 
 
 void limpiarPantalla() {
@@ -51,4 +54,21 @@ void mostrarTablero (int dim, int tabl[], int ultimo, int esExitoso) {
         for (int j = 0; j < dim; j++) {printf(" ----");}
         printf("\n");
     }
+    return;
+}
+
+void mostrarSolucion (int dim, int tabl[]) {
+    printf("\nPresione cualquier tecla para ver solucion.\n");
+    getch();
+    for(int i = 0; i < dim * dim; i++){
+        limpiarPantalla();
+        mostrarTablero(dim, tabl, i, 1);
+        Sleep(TIEMPO_RESULTADO);
+    }
+    return;
+}
+
+void mostrarNoSolucion () {
+    printf("\nNo existe solucion para el escenario dado.\n");
+    return;
 }
